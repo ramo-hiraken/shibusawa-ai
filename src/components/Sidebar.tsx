@@ -4,15 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const navItems = [
-  { href: "/", label: "新しい探求", icon: "+" },
-  { href: "/histories", label: "探求履歴", icon: "📋" },
-  { href: "/settings", label: "設定", icon: "⚙" },
-];
-
 export default function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(true);
+
+  const learnActive = pathname === "/learn";
+  const chatActive = pathname.startsWith("/chat");
+  const topActive = pathname === "/";
 
   return (
     <>
@@ -45,39 +43,73 @@ export default function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-3 space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`
-                  flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
-                  ${isActive
-                    ? "bg-[var(--primary)] text-white font-medium"
-                    : "text-[var(--foreground)] hover:bg-[var(--border)]"
-                  }
-                `}
-              >
-                <span className="text-base">{item.icon}</span>
-                {item.label}
-              </Link>
-            );
-          })}
+        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+          {/* Section: 渋沢栄一を学ぶ */}
+          <p className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider px-3 py-2">
+            渋沢栄一を学ぶ
+          </p>
+          <Link
+            href="/learn"
+            className={`
+              flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+              ${learnActive
+                ? "bg-[var(--primary)] text-white font-medium"
+                : "text-[var(--foreground)] hover:bg-[var(--border)]"
+              }
+            `}
+          >
+            <span className="text-base">📖</span>
+            渋沢について聞く
+          </Link>
+
+          <div className="pt-2">
+            <p className="text-[10px] font-bold text-[var(--muted)] uppercase tracking-wider px-3 py-2">
+              アントレプレナーシップ探求
+            </p>
+            <Link
+              href="/"
+              className={`
+                flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                ${topActive
+                  ? "bg-[var(--primary)] text-white font-medium"
+                  : "text-[var(--foreground)] hover:bg-[var(--border)]"
+                }
+              `}
+            >
+              <span className="text-base font-bold">＋</span>
+              新しい探求を始める
+            </Link>
+            <Link
+              href="/chat"
+              className={`
+                flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors mt-1
+                ${chatActive
+                  ? "bg-[var(--primary)] text-white font-medium"
+                  : "text-[var(--foreground)] hover:bg-[var(--border)]"
+                }
+              `}
+            >
+              <span className="text-base">💬</span>
+              探求チャット
+            </Link>
+          </div>
         </nav>
 
-        {/* User */}
-        <div className="p-4 border-t border-[var(--border)]">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-[var(--primary)] flex items-center justify-center text-white text-xs font-bold">
-              K
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-medium truncate">k.hiramoto</p>
-              <p className="text-[10px] text-[var(--muted)] truncate">ユーザー</p>
-            </div>
-          </div>
+        {/* Settings */}
+        <div className="p-3 border-t border-[var(--border)]">
+          <Link
+            href="/settings"
+            className={`
+              flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+              ${pathname === "/settings"
+                ? "bg-[var(--primary)] text-white font-medium"
+                : "text-[var(--foreground)] hover:bg-[var(--border)]"
+              }
+            `}
+          >
+            <span className="text-base">⚙</span>
+            設定
+          </Link>
         </div>
       </aside>
 

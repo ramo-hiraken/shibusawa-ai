@@ -3,10 +3,11 @@
 import { Fragment } from "react";
 
 const steps = [
-  { id: 1, label: "社会課題の発見", description: "身の回りの課題を見つけよう" },
-  { id: 2, label: "課題の深掘り", description: "なぜその課題が存在するのか" },
-  { id: 3, label: "解決策の構想", description: "ビジネスで解決する方法" },
-  { id: 4, label: "実現可能性の検討", description: "本当に実現できるか考えよう" },
+  { id: 1, label: "課題の特定", description: "気になることを見つけよう" },
+  { id: 2, label: "アイデアの発散", description: "自由に解決策を発想する" },
+  { id: 3, label: "課題の深掘り", description: "本質を問い直す" },
+  { id: 4, label: "解決策の具体化", description: "誰のために何を提供するか" },
+  { id: 5, label: "統合・まとめ", description: "言語化して次の一歩へ" },
 ];
 
 interface StepProgressProps {
@@ -25,7 +26,7 @@ export default function StepProgress({ currentStep }: StepProgressProps) {
         return (
           <Fragment key={step.id}>
             {/* Step (circle + label) */}
-            <div className="flex flex-col items-center w-16 shrink-0">
+            <div className="flex flex-col items-center w-14 shrink-0">
               <div
                 className={`
                   w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all
@@ -38,7 +39,7 @@ export default function StepProgress({ currentStep }: StepProgressProps) {
               </div>
               <p
                 className={`
-                  text-[10px] mt-2 text-center leading-tight
+                  text-[9px] mt-2 text-center leading-tight
                   ${isActive ? "font-bold text-[var(--step-active)]" : "text-[var(--muted)]"}
                 `}
               >
